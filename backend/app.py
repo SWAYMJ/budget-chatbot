@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import sqlite3, re, datetime
+import os  # Needed for Render PORT
 
 app = Flask(__name__)
 
@@ -40,4 +41,6 @@ def chat():
     return jsonify({'reply': reply})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Use PORT from Render or default 10000 for local testing
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=True)
